@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AlertCircle, CheckCircle, RotateCcw } from 'lucide-react';
 
 const DNARepairSimulation = () => {
+  const [start, setStart] = useState(false);
   const [originalDNA, setOriginalDNA] = useState('ATCGTAGCTA');
   const [mutatedIndex, setMutatedIndex] = useState(null);
   const [mutatedBase, setMutatedBase] = useState(null);
@@ -63,6 +64,32 @@ const DNARepairSimulation = () => {
   const currentDNA = getCurrentDNA();
   const complementDNA = getComplement(currentDNA);
 
+  // Welcome Screen
+  if (!start) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-800 via-indigo-900 to-black p-6">
+        <div className="max-w-2xl bg-black bg-opacity-40 p-10 rounded-2xl shadow-2xl backdrop-blur text-center border border-purple-600">
+          <h1 className="text-4xl font-bold text-purple-300 mb-4">
+            Welcome to the DNA Repair Simulation
+          </h1>
+          <p className="text-purple-200 leading-relaxed mb-8 text-lg">
+            This interactive tool allows you to explore how DNA mutations occur
+            and how the cell repairs them using complementary base pairing.
+            Introduce a mutation, reveal the complementary strand, and try to
+            repair it using your knowledge of DNA structure.
+          </p>
+          <button
+            onClick={() => setStart(true)}
+            className="bg-purple-600 hover:bg-purple-700 text-white font-semibold text-lg px-8 py-3 rounded-xl shadow-lg transition-all"
+          >
+            Start Simulation
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Main Simulation
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 p-8">
       <div className="max-w-6xl mx-auto">
